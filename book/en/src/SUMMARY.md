@@ -23,3 +23,8 @@
   <!--- [Ceiling analysis](./internals/ceilings.md)-->
   <!--- [Software tasks](./internals/tasks.md)-->
   <!--- [Timer queue](./internals/timer-queue.md)-->
+- [Software Design Description](./sdd.md)
+  - [Data design](./sdd/data.md)
+  - [Architecture design](./sdd/architecture.md)
+  - [Interface design](./sdd/interface.md)
+  - [Procedural design](./sdd/procedural.md)
