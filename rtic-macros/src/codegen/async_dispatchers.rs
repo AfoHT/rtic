@@ -2,7 +2,7 @@ use crate::syntax::ast::App;
 use crate::{
     analyze::Analysis,
     codegen::{
-        bindings::{async_entry, interrupt_entry, interrupt_exit, handler_config},
+        bindings::{async_entry, handler_config, interrupt_entry, interrupt_exit},
         util,
     },
 };
@@ -68,7 +68,7 @@ pub fn codegen(app: &App, analysis: &Analysis) -> TokenStream2 {
             let entry_stmts = interrupt_entry(app, analysis);
             let exit_stmts = interrupt_exit(app, analysis);
             let async_entry_stmts = async_entry(app, analysis, dispatcher_name.clone());
-            let config = handler_config(app,analysis,dispatcher_name.clone());
+            let config = handler_config(app, analysis, dispatcher_name.clone());
             items.push(quote!(
                 #[allow(non_snake_case)]
                 #[doc = #doc]

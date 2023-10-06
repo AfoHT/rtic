@@ -72,7 +72,7 @@ mod esp32c3 {
     }
     pub fn pre_init_enable_interrupts(app: &App, analysis: &CodegenAnalysis) -> Vec<TokenStream2> {
         let mut stmts = vec![];
-        let mut curr_cpu_id:u8 = 1; //cpu interrupt id 0 is reserved
+        let mut curr_cpu_id: u8 = 1; //cpu interrupt id 0 is reserved
         let rt_err = util::rt_err_ident();
         let max_prio: usize = 15; //unfortunately this is not part of pac, but we know that max prio is 15.
         let interrupt_ids = analysis.interrupts.iter().map(|(p, (id, _))| (p, id));
@@ -199,15 +199,17 @@ mod esp32c3 {
                 .values()
                 .filter_map(|task| Some((&task.args.priority, &task.args.binds))),
         ) {
-            if *name == dispatcher_name{
-                let ret = &("cpu_int_".to_owned()+&curr_cpu_id.to_string()+"_handler");
-                stmts.push(
-                    quote!(#[export_name = #ret])
-                );
+            if *name == dispatcher_name {
+                let ret = &("cpu_int_".to_owned() + &curr_cpu_id.to_string() + "_handler");
+                stmts.push(quote!(#[export_name = #ret]));
             }
             curr_cpu_id += 1;
         }
 
         stmts
     }
+}
+
+pub fn extra_modules(app: &App, _analysis: &SyntaxAnalysis) -> Vec<TokenStream2> {
+    vec![]
 }
