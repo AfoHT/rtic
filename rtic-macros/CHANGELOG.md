@@ -9,6 +9,7 @@ For each category, *Added*, *Changed*, *Fixed* add new entries at the top!
 
 ### Added
 
+- Unstable support for RISC-V targets compatible with `riscv-slic`
 - Unstable ESP32-C3 support.
 
 ### Changed
