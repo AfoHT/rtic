@@ -45,8 +45,8 @@ pub struct App {
     /// Async software tasks: `#[task]`
     pub software_tasks: Map<SoftwareTask>,
 
-    /// The `#[pre_rtic_hook]` function
-    pub pre_rtic_hook: Option<PreRticHook>,
+    /// The `#[early_init]` function
+    pub early_init: Option<EarlyInit>,
 }
 
 /// Interrupts used to dispatch software tasks
@@ -373,20 +373,20 @@ pub type SharedResources = Map<Access>;
 /// Local resource access/declaration list in task attribute
 pub type LocalResources = Map<TaskLocal>;
 
-/// The `#[pre_rtic_hook]` function
+/// The `#[early_init]` function
 #[derive(Debug)]
 #[non_exhaustive]
-pub struct PreRticHook {
-    /// Attributes that will apply to this `#[pre_rtic_hook]` function
+pub struct EarlyInit {
+    /// Attributes that will apply to this `#[early_init]` function
     pub attrs: Vec<Attribute>,
 
-    /// The name of the `#[pre_rtic_hook]` function
+    /// The name of the `#[early_init]` function
     pub name: Ident,
 
-    /// The statements that make up this `#[pre_rtic_hook]` function
+    /// The statements that make up this `#[early_init]` function
     pub stmts: Vec<Stmt>,
 
-    /// The `#[pre_rtic_hook]` function is declared externally
+    /// The `#[early_init]` function is declared externally
     pub is_extern: bool,
 }
 

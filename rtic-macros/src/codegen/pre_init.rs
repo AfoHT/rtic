@@ -6,7 +6,24 @@ use quote::quote;
 
 /// Generates code that runs before `#[init]`
 pub fn codegen(app: &App, analysis: &Analysis) -> Vec<TokenStream2> {
-    let mut stmts = vec![];
+    let mut stmts: Vec<TokenStream2> = vec![];
+
+    // About as early as it gets, but still after #[pre_init]
+    if let Some(early_init) = &app.early_init {
+        let attrs = &early_init.attrs;
+        let name = &early_init.name;
+        let early_init_stmts = &early_init.stmts;
+        if !early_init.is_extern {
+            stmts.push(quote!(
+                #(#attrs)*
+                fn #name() {
+                    #(#early_init_stmts)*
+                }
+            ))
+        }
+        // Call early_init
+        stmts.push(quote!(let _: () = #name();));
+    };
 
     // Disable interrupts -- `init` must run with interrupts disabled
     stmts.push(quote!(rtic::export::interrupt::disable();));

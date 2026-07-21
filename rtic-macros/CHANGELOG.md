@@ -9,7 +9,7 @@ For each category, *Added*, *Changed*, *Fixed* add new entries at the top!
 
 ### Added
 
-- `#[pre_rtic_hook]` attribute that allows running code before RTIC initialization.
+- `#[early_init]` attribute that allows running code before RTIC initialization.
 
 ## [v2.3.0] - 2026-07-08
 
